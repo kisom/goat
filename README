@@ -1,0 +1,33 @@
+goat
+====
+
+`goat` is a (very) basic version of netcat. It facilitates simple TCP
+transfers via a statically-compiled binary. I needed netcat to transfer
+some data on a host, but it didn't have netcat; I spent ten minutes trying
+to get netcat and ncat to build statically, then I just wrote this in Go
+in ten minutes. I would be shocked if someone else hadn't written this,
+but it was faster to write this than to look for it.
+
+It uses only the standard library, and no external dependencies besides
+a working Go toolchain are needed to build this.
+
+Usage: goat [-4] [-6] [-k] [-l] [address] port
+Flags:
+	-4	IPv4 only
+	-6	IPv6 only
+	-k	Keep the listener open
+	-l	Listen on the specified host/port.
+
+Examples:
+
+	Setting up a listener on port 4141:
+	$ goat -l 4141
+
+	Setting up a listener on localhost:4141:
+	$ goat -l localhost 4141
+
+	Tar a directory to a remote host:
+	$ tar czf - /path/to/dir | goat filesrv.example.net 4141 > dir.tar.gz
+
+License: MIT
+
